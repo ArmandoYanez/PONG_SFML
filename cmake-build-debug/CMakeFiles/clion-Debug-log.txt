@@ -1,0 +1,5 @@
+C:\Users\Armando\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cmake.exe -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=C:/Users/Armando/AppData/Local/Programs/CLion/bin/ninja/win/x64/ninja.exe -DCMAKE_TOOLCHAIN_FILE=C:\Users\Armando\.vcpkg-clion\vcpkg\scripts\buildsystems\vcpkg.cmake -G Ninja -S C:\Users\Armando\CLionProjects\PONG_SFML -B C:\Users\Armando\CLionProjects\PONG_SFML\cmake-build-debug
+-- Found SFML 2.6.1 in C:/Users/Armando/.vcpkg-clion/vcpkg/installed/x64-windows/share/sfml
+-- Configuring done (0.2s)
+-- Generating done (0.0s)
+-- Build files have been written to: C:/Users/Armando/CLionProjects/PONG_SFML/cmake-build-debug

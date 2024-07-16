@@ -1,0 +1,3 @@
+C:/Users/Armando/CLionProjects/PONG_SFML/cmake-build-debug/CMakeFiles/SFML.dir
+C:/Users/Armando/CLionProjects/PONG_SFML/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Armando/CLionProjects/PONG_SFML/cmake-build-debug/CMakeFiles/rebuild_cache.dir
