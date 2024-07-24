@@ -41,7 +41,7 @@ int main(){
     player2.setFillColor(sf::Color::Red);
 
     //Velocidad
-    float velocidad = 250;
+    float velocidad = 0.1;
 
 
     //Pelota
@@ -61,16 +61,16 @@ int main(){
 
     switch (direccionInicial) {
         case 0:
-            velocidadPelota = sf::Vector2f(-120, -120);
+            velocidadPelota = sf::Vector2f(-0.02f, -0.02f);
             break;
         case 1:
-            velocidadPelota = sf::Vector2f(120, -120);
+            velocidadPelota = sf::Vector2f(0.02f, -0.02f);
             break;
         case 2:
-            velocidadPelota = sf::Vector2f(-120, 120);
+            velocidadPelota = sf::Vector2f(-0.02f, 0.02f);
             break;
         case 3:
-            velocidadPelota = sf::Vector2f(120, 120);
+            velocidadPelota = sf::Vector2f(0.02f, 0.02f);
             break;
     }
 
@@ -124,15 +124,8 @@ int main(){
     victoriap2.setFillColor(sf::Color::Red);
     victoriap2.setPosition(ancho / 2 - victoriap2.getGlobalBounds().width / 2, alto / 2 - victoriap2.getGlobalBounds().height);
 
-    sf::Clock deltaClock;
-
     //Bucle principal
     while (window.isOpen()) {
-        //Utlizamos delta time para controlar los fps
-
-        sf::Time deltaTime = deltaClock.restart();
-        float deltaSeconds = deltaTime.asSeconds();
-
         //Manejo de eventos
         sf::Event event;
         while (window.pollEvent(event)) {
@@ -141,22 +134,27 @@ int main(){
         }
 
         //Movimiento de la pelota
-        pelota.move(velocidadPelota * deltaSeconds);
+        pelota.move(velocidadPelota);
 
         // Colision vertical
         if (pelota.getPosition().y < 0 || pelota.getPosition().y + 2 * 10 > alto) {
             velocidadPelota.y = -velocidadPelota.y;
         }
 
-        // colison con player1 y player2
-        if (pelota.getGlobalBounds().intersects(player1.getGlobalBounds()) ||
-            pelota.getGlobalBounds().intersects(player2.getGlobalBounds())) {
-            velocidadPelota.x = -velocidadPelota.x;
+        // Colision con player1
+        if (pelota.getGlobalBounds().intersects(player1.getGlobalBounds())) {
+            if (velocidadPelota.x < 0) {
+                velocidadPelota.x = -velocidadPelota.x;
+                velocidadPelota.x += 0.01f; // Sumamos a la velocidad
+            }
+        }
 
-            //Aumentamos la velocidad un poco
-            //Verificamos si la velocidad es negativa o psitiva y segun eso restamos o sumamos la velocidad
-            velocidadPelota.x += (velocidadPelota.x > 0) ? 15 : -15;
-            velocidadPelota.y += (velocidadPelota.x > 0) ? 15 : -15;
+        // Colision con player2
+        if (pelota.getGlobalBounds().intersects(player2.getGlobalBounds())) {
+            if (velocidadPelota.x > 0) {
+                velocidadPelota.x = -velocidadPelota.x;
+                velocidadPelota.x -= 0.01f; // Sumamos a la velocidad
+            }
         }
 
         // Colision horizontal
@@ -195,34 +193,34 @@ int main(){
             direccionInicial = std::rand() % 4;
             switch (direccionInicial) {
                 case 0:
-                    velocidadPelota = sf::Vector2f(-120, -120);
+                    velocidadPelota = sf::Vector2f(-0.02f, -0.02f);
                     break;
                 case 1:
-                    velocidadPelota = sf::Vector2f(120, -120);
+                    velocidadPelota = sf::Vector2f(0.02f, -0.02f);
                     break;
                 case 2:
-                    velocidadPelota = sf::Vector2f(-120, 120);
+                    velocidadPelota = sf::Vector2f(-0.02f, 0.02f);
                     break;
                 case 3:
-                    velocidadPelota = sf::Vector2f(120, 120);
+                    velocidadPelota = sf::Vector2f(0.02f, 0.02f);
                     break;
             }
         }
 
         // Controles del player 1
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && player1.getPosition().y > 0) {
-            player1.move(0, -velocidad * deltaSeconds);
+            player1.move(0, -velocidad);
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && player1.getPosition().y + player1.getSize().y < alto) {
-            player1.move(0, velocidad * deltaSeconds);
+            player1.move(0, velocidad);
         }
 
         // Controles del player 2
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && player2.getPosition().y > 0) {
-            player2.move(0, -velocidad * deltaSeconds);
+            player2.move(0, -velocidad);
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && player2.getPosition().y + player2.getSize().y < alto) {
-            player2.move(0, velocidad * deltaSeconds);
+            player2.move(0, velocidad);
         }
 
         // Limpiamos la ventana
